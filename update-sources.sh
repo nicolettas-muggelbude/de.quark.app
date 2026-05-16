@@ -12,13 +12,16 @@ if [[ ! -f "$QUARK_DIR/src-tauri/Cargo.lock" ]]; then
   exit 1
 fi
 
-pip3 install tomlkit flatpak-node-generator --break-system-packages -q
+pip3 install tomlkit --break-system-packages -q
 
-curl -sLo /tmp/flatpak-cargo-generator.py \
-  'https://raw.githubusercontent.com/flatpak/flatpak-builder-tools/master/cargo/flatpak-cargo-generator.py'
+# flatpak-builder-tools direkt aus Git (pip-Paket hat Bug mit peerDep-only packages)
+if [[ ! -d /tmp/flatpak-builder-tools ]]; then
+  git clone --depth 1 https://github.com/flatpak/flatpak-builder-tools.git /tmp/flatpak-builder-tools
+fi
+pip3 install /tmp/flatpak-builder-tools/node --break-system-packages -q
 
 echo "=== Cargo-Sources generieren ==="
-python3 /tmp/flatpak-cargo-generator.py \
+python3 /tmp/flatpak-builder-tools/cargo/flatpak-cargo-generator.py \
   "$QUARK_DIR/src-tauri/Cargo.lock" \
   -o "$SCRIPT_DIR/cargo-sources.json"
 

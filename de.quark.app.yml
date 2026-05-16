@@ -1,6 +1,6 @@
 app-id: de.quark.app
 runtime: org.gnome.Platform
-runtime-version: '47'
+runtime-version: '49'
 sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.rust-stable
@@ -21,14 +21,14 @@ build-options:
   env:
     CARGO_HOME: /run/build/quark/cargo
     CARGO_NET_OFFLINE: 'true'
+    npm_config_cache: /run/build/quark/flatpak-node/npm-cache
     npm_config_offline: 'true'
 
 modules:
   - name: quark
     buildsystem: simple
     build-options:
-      env:
-        npm_config_cache: /run/build/quark/npm-cache
+      env: {}
     build-commands:
       - . /usr/lib/sdk/rust-stable/enable.sh
       - . /usr/lib/sdk/node20/enable.sh
@@ -57,6 +57,9 @@ modules:
         url: https://github.com/nicolettas-muggelbude/quark
         tag: v1.0.0
         commit: 9a763361c96170fcc3a5890ed605cd7ad536a49b
+
+      - type: file
+        path: de.quark.app.desktop
 
       - node-sources-frontend.json
       - cargo-sources.json
