@@ -55,8 +55,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/nicolettas-muggelbude/quark
-        tag: v1.0.0
-        commit: 9a763361c96170fcc3a5890ed605cd7ad536a49b
+        tag: v1.0.1
+        commit: 9469471c0246ed1f9a4c35c76dbc2339b759ff6f
 
       - type: file
         path: de.quark.app.desktop
