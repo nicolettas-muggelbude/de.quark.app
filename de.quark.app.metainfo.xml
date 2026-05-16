@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>de.quark.app</id>
+
+  <name>Quark</name>
+  <summary>QR-Code-Generator</summary>
+
+  <metadata_license>MIT</metadata_license>
+  <project_license>AGPL-3.0-only</project_license>
+
+  <description>
+    <p>
+      Quark is a desktop QR code generator. Enter a URL and get a QR code
+      you can customize with colors, gradients, frames, badges and labels,
+      then export as PNG in 256, 512 or 1024 px.
+    </p>
+    <ul>
+      <li>Custom foreground and background colors including rainbow gradient</li>
+      <li>Frames: simple border, corner brackets, badge top/bottom</li>
+      <li>Text label below the QR code with font, size and alignment options</li>
+      <li>PNG export at 256, 512 and 1024 px</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">de.quark.app.desktop</launchable>
+
+  <url type="homepage">https://github.com/nicolettas-muggelbude/quark</url>
+  <url type="bugtracker">https://github.com/nicolettas-muggelbude/quark/issues</url>
+
+  <developer id="de.quark">
+    <name>Nicole</name>
+  </developer>
+
+  <releases>
+    <release version="1.0.1" date="2026-05-16">
+      <description>
+        <p>Wayland support in Flatpak.</p>
+      </description>
+    </release>
+    <release version="1.0.0" date="2026-05-16">
+      <description>
+        <p>First stable release with frame feature: simple border, corner brackets, badge top/bottom.</p>
+      </description>
+    </release>
+  </releases>
+
+  <content_rating type="oars-1.1" />
+
+  <categories>
+    <category>Graphics</category>
+    <category>Utility</category>
+  </categories>
+
+  <keywords>
+    <keyword>QR</keyword>
+    <keyword>code</keyword>
+    <keyword>generator</keyword>
+    <keyword>barcode</keyword>
+  </keywords>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>Quark QR-Code-Generator</caption>
+      <image>https://raw.githubusercontent.com/nicolettas-muggelbude/quark/main/assets/Screenshot-qr.png</image>
+    </screenshot>
+  </screenshots>
+</component>
