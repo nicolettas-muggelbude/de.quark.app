@@ -1,0 +1,62 @@
+app-id: de.quark.app
+runtime: org.gnome.Platform
+runtime-version: '47'
+sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+  - org.freedesktop.Sdk.Extension.node20
+command: quark
+
+finish-args:
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+  - --filesystem=xdg-download
+  - --talk-name=org.freedesktop.portal.Desktop
+  - --talk-name=org.freedesktop.portal.FileChooser
+
+build-options:
+  append-path: /usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/node20/bin
+  env:
+    CARGO_HOME: /run/build/quark/cargo
+    CARGO_NET_OFFLINE: 'true'
+    npm_config_offline: 'true'
+
+modules:
+  - name: quark
+    buildsystem: simple
+    build-options:
+      env:
+        npm_config_cache: /run/build/quark/npm-cache
+    build-commands:
+      - . /usr/lib/sdk/rust-stable/enable.sh
+      - . /usr/lib/sdk/node20/enable.sh
+
+      # Frontend bauen
+      - cd src/frontend && npm ci --offline
+      - cd src/frontend && npm run build
+
+      # Tauri / Rust-Binary bauen
+      - cargo build --release --manifest-path src-tauri/Cargo.toml
+
+      # Binary installieren
+      - install -Dm755 src-tauri/target/release/quark /app/bin/quark
+
+      # Desktop-Integration
+      - install -Dm644 de.quark.app.desktop /app/share/applications/de.quark.app.desktop
+      - install -Dm644 src-tauri/icons/128x128.png
+          /app/share/icons/hicolor/128x128/apps/de.quark.app.png
+      - install -Dm644 src-tauri/icons/256x256.png
+          /app/share/icons/hicolor/256x256/apps/de.quark.app.png
+      - install -Dm644 src-tauri/icons/quark-icon.svg
+          /app/share/icons/hicolor/scalable/apps/de.quark.app.svg
+
+    sources:
+      - type: git
+        url: https://github.com/nicolettas-muggelbude/quark
+        tag: v1.0.0
+        commit: 9a763361c96170fcc3a5890ed605cd7ad536a49b
+
+      - node-sources-frontend.json
+      - cargo-sources.json

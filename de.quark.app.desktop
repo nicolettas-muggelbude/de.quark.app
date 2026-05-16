@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Quark
+Comment=QR-Code-Generator
+Exec=quark
+Icon=de.quark.app
+Terminal=false
+Type=Application
+Categories=Graphics;Utility;
+Keywords=QR;Code;Generator;
